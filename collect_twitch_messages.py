@@ -133,10 +133,12 @@ class ChannelListenerFactory(protocol.ClientFactory):
 if __name__ == '__main__':
  
  	f = ChannelListenerFactory()
+ 	eventserver = ChannelListenerFactory()
 
 	# connect factory protocol and application to this host and port
 	reactor.connectTCP("irc.twitch.tv", 6667, f)
-
+	reactor.connectTCP("199.9.252.54", 6667, eventserver)
+	
 	# run bot
 	reactor.run()
 
