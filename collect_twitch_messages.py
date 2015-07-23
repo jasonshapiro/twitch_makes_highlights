@@ -30,7 +30,7 @@ class DataHandler():
 
 		data_string = self.construct_bulk_string()
 		del self.payload[:]
-		url_string = 'http://localhost:9200/_bulk'
+		url_string = 'localhost:9200/_bulk'
 		r = requests.post(url_string, data=data_string)
 		print 'Payload dumped!'
 
