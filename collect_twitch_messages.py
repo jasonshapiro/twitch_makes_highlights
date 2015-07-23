@@ -17,7 +17,7 @@ class DataHandler():
 		
 		channel_name = channel.split('#')[1]
 		username = user.split('!')[0]
-		time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
 		self.payload.append((channel_name, username, message, time))
 
@@ -30,7 +30,7 @@ class DataHandler():
 
 		data_string = self.construct_bulk_string()
 		del self.payload[:]
-		url_string = 'localhost:9200/_bulk'
+		url_string = 'http://localhost:9200/_bulk'
 		r = requests.post(url_string, data=data_string)
 		print 'Payload dumped!'
 
