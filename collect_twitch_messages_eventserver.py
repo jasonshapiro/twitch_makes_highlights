@@ -17,9 +17,9 @@ class DataHandler():
 		
 		# ignore 1 character messages and messages longer than 50 characters (crude spam filter) 
 
-		if len(message) > 50 || len(message) == 1:
+		if len(message) > 50 | len(message) == 1:
 			return
-		
+
 		channel_name = channel.split('#')[1]
 		username = user.split('!')[0]
 		time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
