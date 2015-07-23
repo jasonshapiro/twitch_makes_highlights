@@ -17,7 +17,7 @@ class DataHandler():
 		
 		# ignore 1 character messages and messages longer than 50 characters (crude spam filter) 
 
-		if len(message) > 50 | len(message) == 1:
+		if (len(message) > 50) | (len(message) == 1):
 			return
 
 		channel_name = channel.split('#')[1]
@@ -81,7 +81,6 @@ class ChannelListener(irc.IRCClient):
 
 	def privmsg(self, user, channel, msg):
 		self.data_handler.processTwitchMessage(msg, user, channel)
-		print 'privmsg'
 
 	def updateStreams(self):
 		current_streams = self.getStreams()
