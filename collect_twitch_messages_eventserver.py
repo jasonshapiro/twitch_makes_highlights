@@ -11,9 +11,14 @@ class DataHandler():
 
 	def __init__(self):
 		self.payload = []
-		self.payload_threshold = 10
+		self.payload_threshold = 100
 
 	def processTwitchMessage(self, message, user, channel):
+		
+		# ignore 1 character messages and messages longer than 50 characters (crude spam filter) 
+
+		if len(message) > 50 || len(message) == 1:
+			return
 		
 		channel_name = channel.split('#')[1]
 		username = user.split('!')[0]
