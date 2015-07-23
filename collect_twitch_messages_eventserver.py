@@ -44,7 +44,7 @@ class DataHandler():
 		output = ''
 
 		for i, data in enumerate(self.payload):
-			output +=  '{ "index" : { "_index" : "' + data[0] + '@' + data[3].split(" ")[0] +'", "_type" : "message" }}\n' + '{ "username": "' + data[1] + '", "content": "' + data[2] + '", "time": "' + data[3] + '" }\n'
+			output +=  '{ "index" : { "_index" : "' + data[0] + '_' + data[3].split(" ")[0] +'", "_type" : "message" }}\n' + '{ "username": "' + data[1] + '", "content": "' + data[2] + '", "time": "' + data[3] + '" }\n'
 
 		return output
 
