@@ -71,7 +71,7 @@ class ChannelListener(irc.IRCClient):
 			self.running_streams.append(stream_name)
 			self.join(stream_name)
 		lc = task.LoopingCall(self.updateStreams)
-		lc.start(10)
+		lc.start(30)
 
 		print 'signed on, joining channel!'
 
@@ -111,11 +111,22 @@ class ChannelListener(irc.IRCClient):
 		# queries twitch api in order to find out which followed streams are currently online
 		url_string = ACTIVE_STREAM_API_ENDPOINT
 		r = requests.get(url_string)
+
 		data = r.json()
+		time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
 		channel_array = []
+		bulk_data_string = ''
+
 		if 'streams' in data:
 			for stream in data['streams']:
 				channel_array.append(stream['channel']['name'].encode('utf-8'))
+				bulk_data_string +='{ "index" : { "_index" : "' + stream['channel']['name'] + '__' + time.split(" ")[0] +'", "_type" : "stats" }}\n' + '{ "viewers": "' + stream['viewers'] + '", "time": "' + time + '"}\n'
+
+		# also dump viewer count to elasticsearch while stream metadata is in scope
+		
+		r = requests.post('http://localhost:9200/_bulk', data=bulk_data_string)
+
 		return channel_array
 
 class ChannelListenerFactory(protocol.ClientFactory):
