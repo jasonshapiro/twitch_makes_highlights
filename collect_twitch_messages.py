@@ -121,7 +121,7 @@ class ChannelListener(irc.IRCClient):
 		if 'streams' in data:
 			for stream in data['streams']:
 				channel_array.append(stream['channel']['name'].encode('utf-8'))
-				bulk_data_string +='{ "index" : { "_index" : "' + stream['channel']['name'] + '__' + time.split(" ")[0] +'", "_type" : "stats" }}\n' + '{ "viewers": "' + stream['viewers'] + '", "time": "' + time + '"}\n'
+				bulk_data_string +='{ "index" : { "_index" : "' + stream['channel']['name'].encode('utf-8') + '__' + time.split(" ")[0] +'", "_type" : "stats" }}\n' + '{ "viewers": "' + stream['viewers'].encode('utf-8') + '", "time": "' + time + '"}\n'
 
 		# also dump viewer count to elasticsearch while stream metadata is in scope
 		
